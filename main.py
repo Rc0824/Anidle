@@ -46,7 +46,6 @@ def main(page: ft.Page):
     target = get_random_anime(anime_list)
     guesses = []
     game_over = False
-    MAX_GUESSES = 8
 
     print(f"Target is: {target.name_cn}") # Cheat for debug
 
@@ -175,7 +174,7 @@ def main(page: ft.Page):
     guesses_column = ft.Column(spacing=10, horizontal_alignment=ft.CrossAxisAlignment.CENTER)
     
     # Attempts Counter
-    attempts_text = ft.Text(f"剩餘次數: {MAX_GUESSES}", size=16, color=COLORS["blue_grey_400"], weight="bold")
+    attempts_text = ft.Text(f"猜測次數: 0", size=16, color=COLORS["blue_grey_400"], weight="bold")
     
     # Header Grid (Labels)
     headers = ["🖼️", "🎬 動漫", "🏢 工作室", "🏷️ 類型", "📅 年份", "📺 集數", "👥 受眾", "📖 來源"]
@@ -204,7 +203,7 @@ def main(page: ft.Page):
         guesses_column.controls.clear()
         input_field.disabled = False
         input_field.value = ""
-        attempts_text.value = f"剩餘次數: {MAX_GUESSES}"
+        attempts_text.value = f"猜測次數: 0"
         # input_field.focus() # Removed to avoid RuntimeWarning
         
         if win_overlay and win_overlay in page.overlay:
@@ -258,6 +257,7 @@ def main(page: ft.Page):
                     ft.Text("🎉 恭喜答對！", size=24, weight="bold", color=COLORS["green_600"]),
                     ft.Divider(),
                     ft.Text(f"正確答案：{anime.name_cn}", size=20, weight="bold"),
+                    ft.Text(f"總共猜測次數：{len(guesses)}", size=18, weight="bold", color="amber"),
                     ft.Text(f"英文名稱：{anime.name_en}"),
                     ft.Divider(),
                     ft.Text(f"工作室：{anime.studio}"),
@@ -290,8 +290,8 @@ def main(page: ft.Page):
         guesses.append(anime)
         
         # Update attempts
-        remaining = MAX_GUESSES - len(guesses)
-        attempts_text.value = f"剩餘次數: {remaining}"
+        # Update attempts count
+        attempts_text.value = f"猜測次數: {len(guesses)}"
 
         input_field.value = ""
         close_menu()
@@ -300,10 +300,6 @@ def main(page: ft.Page):
             game_over = True
             input_field.disabled = True
             show_win_dialog(anime) # Handles its own update
-        elif remaining <= 0:
-            game_over = True
-            input_field.disabled = True
-            show_loss_dialog(target)
         else:
             page.update()
 
