@@ -6,7 +6,7 @@ import urllib.parse
 from datetime import datetime
 
 # Config
-TARGET_COUNT = 300 # Increased limit
+TARGET_COUNT = 1000 # Increased limit
 OUTPUT_FILE = 'data/rawAnime.json'
 API_URL = "https://api.jikan.moe/v4/anime"
 

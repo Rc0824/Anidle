@@ -19,13 +19,25 @@ def main(page: ft.Page):
     # 1. Config Page
     page.title = "Anidle"
     page.theme_mode = ft.ThemeMode.DARK
-    page.bgcolor = COLORS["blue_grey_900"]
+    # page.bgcolor = COLORS["blue_grey_900"] # Removed for gradient
     page.padding = 20
     page.scroll = "auto"
     page.vertical_alignment = ft.MainAxisAlignment.START
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+    
+    # Gradient Background
+    page.decoration = ft.BoxDecoration(
+        gradient=ft.LinearGradient(
+            begin=ft.Alignment(0, -1),
+            end=ft.Alignment(0, 1),
+            colors=[
+                "#0f172a", # Slate 900 (Dark Blue-ish)
+                "#020617", # Slate 950 (Almost Black)
+            ],
+        )
+    )
 
-    # 2. Game State
+
     anime_list = load_anime_data()
     if not anime_list:
         page.add(ft.Text("Error: No data found. Please run fetch script first.", color="red"))
@@ -112,7 +124,8 @@ def main(page: ft.Page):
         row_controls.append(create_image_cell(guess.image_url, COL_WIDTHS[0]))
 
         # 1. Title (Text Only)
-        row_controls.append(create_cell(guess.name_cn, "neutral", COL_WIDTHS[1]))
+        status = "correct" if guess.id == target.id else "incorrect"
+        row_controls.append(create_cell(guess.name_cn, status, COL_WIDTHS[1]))
         
         # 2. Studio
         status = "correct" if guess.studio == target.studio else "incorrect"
@@ -165,7 +178,7 @@ def main(page: ft.Page):
     attempts_text = ft.Text(f"剩餘次數: {MAX_GUESSES}", size=16, color=COLORS["blue_grey_400"], weight="bold")
     
     # Header Grid (Labels)
-    headers = ["", "動漫", "工作室", "類型", "年份", "集數", "受眾", "來源"]
+    headers = ["🖼️", "🎬 動漫", "🏢 工作室", "🏷️ 類型", "📅 年份", "📺 集數", "👥 受眾", "📖 來源"]
     header_row = ft.Row(
         controls=[
             ft.Container(
@@ -281,7 +294,7 @@ def main(page: ft.Page):
         attempts_text.value = f"剩餘次數: {remaining}"
 
         input_field.value = ""
-        suggestions_container.visible = False
+        close_menu()
 
         if anime.id == target.id:
             game_over = True
@@ -298,7 +311,7 @@ def main(page: ft.Page):
         """Step 1: Fill input with selected anime name"""
         anime = e.control.data
         input_field.value = anime.name_cn
-        suggestions_container.visible = False
+        close_menu()
         await input_field.focus()
         page.update()
 
@@ -331,7 +344,7 @@ def main(page: ft.Page):
 
         matches = [
             a for a in anime_list 
-            if (a.name_cn.startswith(val) or a.name_en.lower().startswith(val))
+            if (val in a.name_cn or val in a.name_en.lower())
             and a not in guesses
         ][:10]
 
@@ -348,8 +361,10 @@ def main(page: ft.Page):
             suggestions_view.height = min(len(matches) * 60, 300)
             suggestions_container.height = suggestions_view.height
             suggestions_container.visible = True
+            dismiss_layer.visible = True
         else:
             suggestions_container.visible = False
+            dismiss_layer.visible = False
         
         page.update()
 
@@ -377,6 +392,13 @@ def main(page: ft.Page):
 
     # Suggestions Container (Floating Wrapper)
     # Wrapper is transparent and full width to allow centering
+    
+    # Define close_menu FIRST so it can be used in on_click
+    def close_menu(e=None):
+        suggestions_container.visible = False
+        dismiss_layer.visible = False
+        page.update()
+
     suggestions_container = ft.Container(
         content=ft.Container(
             content=suggestions_view,
@@ -385,18 +407,31 @@ def main(page: ft.Page):
             border=ft.Border.all(1, COLORS["blue_grey_700"]),
             width=400, # Fixed width for the menu itself
             shadow=ft.BoxShadow(
-                spread_radius=1,
-                blur_radius=20,
-                color=ft.Colors.BLACK,
-                offset=ft.Offset(0, 10),
+                blur_radius=10,
+                color=ft.Colors.with_opacity(0.5, "black"),
             ),
+            # Consume click on the menu itself so it doesn't close
+            on_click=lambda e: None, 
         ),
-        bgcolor=ft.Colors.TRANSPARENT, 
-        top=180, # Adjusted vertical position
+        visible=False,
+        # Centering logic:
+        # Use simple top/left/right positioning for Overlay
+        top=280, # Position below input field (Approx)
         left=0,
         right=0,
         alignment=ft.Alignment(0, -1), # Auto center horizontally
+        on_click=close_menu, # Clicking the wrapper (outside menu) closes it
+    )
+
+    dismiss_layer = ft.Container(
+        expand=True,
+        top=0,
+        left=0,
+        right=0,
+        bottom=0,
+        bgcolor=ft.Colors.TRANSPARENT,
         visible=False,
+        on_click=close_menu,
     )
 
     # --- 6. Layout Construction ---
@@ -420,7 +455,8 @@ def main(page: ft.Page):
     # Root Stack
     # Root Layout: Just the main content in the stack/column
     # The overlay handle suggestions automatically
-    page.overlay.append(suggestions_container)
+    page.overlay.append(dismiss_layer) # Add layer first (behind)
+    page.overlay.append(suggestions_container) # Add menu on top
 
     page.add(
         ft.Stack(
