@@ -57,7 +57,8 @@ def fetch_top_anime(limit=50):
                         "year": item.get('year') or (int(item['aired']['prop']['from']['year']) if item.get('aired') and item['aired'].get('prop') and item['aired']['prop'].get('from') and item['aired']['prop']['from'].get('year') else 0),
                         "episodes": item.get('episodes') or 0,
                         "source": item.get('source', 'Unknown'),
-                        "score": item.get('score', 0)
+                        "score": item.get('score', 0),
+                        "synopsis": item.get('synopsis', '')
                     }
                     all_data.append(entry)
                     if len(all_data) >= limit:

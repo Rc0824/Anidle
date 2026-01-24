@@ -1,6 +1,7 @@
 import flet as ft
 from anime_data import load_anime_data, get_daily_anime, get_random_anime, Anime
 import time
+import random
 
 def main(page: ft.Page):
     # Create Colors map
@@ -19,6 +20,7 @@ def main(page: ft.Page):
     # 1. Config Page
     page.title = "Anidle"
     page.theme_mode = ft.ThemeMode.DARK
+    page.theme = ft.Theme(font_family="Microsoft JhengHei") # Standard TC font
     # page.bgcolor = COLORS["blue_grey_900"] # Removed for gradient
     page.padding = 20
     page.scroll = "auto"
@@ -195,15 +197,18 @@ def main(page: ft.Page):
     win_overlay = None
 
     def restart_game(e):
-        nonlocal target, guesses, game_over, win_overlay
+        nonlocal target, guesses, game_over, win_overlay, penalty_count
         target = get_random_anime(anime_list)
         guesses = []
         game_over = False
+        unlocked_hints.clear()
+        revealed_tag_indices.clear()
+        penalty_count = 0
         
         guesses_column.controls.clear()
         input_field.disabled = False
         input_field.value = ""
-        attempts_text.value = f"猜測次數: 0"
+        update_attempts_text()
         # input_field.focus() # Removed to avoid RuntimeWarning
         
         if win_overlay and win_overlay in page.overlay:
@@ -257,7 +262,7 @@ def main(page: ft.Page):
                     ft.Text("🎉 恭喜答對！", size=24, weight="bold", color=COLORS["green_600"]),
                     ft.Divider(),
                     ft.Text(f"正確答案：{anime.name_cn}", size=20, weight="bold"),
-                    ft.Text(f"總共猜測次數：{len(guesses)}", size=18, weight="bold", color="amber"),
+                    ft.Text(f"總共猜測次數：{len(guesses) + penalty_count}", size=18, weight="bold", color="amber"),
                     ft.Text(f"英文名稱：{anime.name_en}"),
                     ft.Divider(),
                     ft.Text(f"工作室：{anime.studio}"),
@@ -282,6 +287,191 @@ def main(page: ft.Page):
         page.overlay.append(win_overlay)
         page.update()
 
+    # --- Hint System Logic ---
+    unlocked_hints = set()
+    revealed_tag_indices = set()
+    penalty_count = 0
+    
+    def update_attempts_text():
+        total = len(guesses) + penalty_count
+        attempts_text.value = f"猜測次數: {total}"
+        # page.update() # Called by caller usually
+
+    def mask_synopsis(synopsis: str, anime: Anime) -> str:
+        if not synopsis: return "無簡介資料"
+        masked = synopsis
+        # Mask Titles (Simple replacement)
+        titles = [anime.name_cn, anime.name_en, anime.name_cn.replace("：", ":")] 
+        for title in titles:
+            if title and title != "Unknown":
+                masked = masked.replace(title, "[***]")
+        return masked
+
+    def create_hint_content():
+        rows = [
+            ft.Text("💡 提示系統", size=20, weight="bold", color="white"),
+            ft.Divider(),
+        ]
+
+        # LV1: Tags (Multi-unlock)
+        candidates = target.themes if target.themes else target.genres
+        # Ensure we have a list to index into
+        candidates = list(candidates) if candidates else []
+        
+        l1_content = ft.Column(spacing=5)
+        
+        # Display Revealed Tags
+        if revealed_tag_indices:
+            tags_row = ft.Row(wrap=True, spacing=5)
+            for idx in sorted(list(revealed_tag_indices)):
+                if idx < len(candidates):
+                    tags_row.controls.append(
+                        ft.Container(
+                            content=ft.Text(candidates[idx], size=14, color="white"),
+                            padding=5, 
+                            bgcolor=COLORS["amber_600"],
+                            border_radius=4
+                        )
+                    )
+            l1_content.controls.append(tags_row)
+            
+        # Unlock Button (If more available)
+        if len(revealed_tag_indices) < len(candidates):
+            remaining = len(candidates) - len(revealed_tag_indices)
+            l1_content.controls.append(
+                 ft.FilledButton(
+                    f"解鎖標籤 (剩餘 {remaining} 個) (+2 猜測)", 
+                    on_click=lambda e: unlock_hint(1, 2),
+                    style=ft.ButtonStyle(bgcolor=COLORS["blue_grey_700"], color="white")
+                )
+            )
+        elif not candidates:
+             l1_content.controls.append(ft.Text("無可用標籤", color=COLORS["blue_grey_400"]))
+        else:
+             l1_content.controls.append(ft.Text("✅ 已顯示所有標籤", color=COLORS["green_600"], size=12))
+
+        rows.extend([ft.Text("LV 1", weight="bold"), l1_content, ft.Divider()])
+
+        # LV2: Blurred Image
+        l2_content = None
+        if 2 in unlocked_hints:
+            # Stack with Image and Blur Container
+            l2_content = ft.Stack([
+                ft.Image(src=target.image_url, width=150, height=210, fit="cover", border_radius=5),
+                ft.Container(
+                    width=150, height=210,
+                    blur=ft.Blur(5, 5), # Reduce blur intensity
+                    bgcolor="#03FFFFFF"
+                )
+            ], width=150, height=210)
+        else:
+            l2_content = ft.FilledButton(
+                "解鎖 LV2: 模糊封面 (+5 猜測)", 
+                on_click=lambda e: unlock_hint(2, 5),
+                style=ft.ButtonStyle(bgcolor=COLORS["blue_grey_700"], color="white")
+            )
+        rows.extend([ft.Text("LV 2", weight="bold"), l2_content, ft.Divider()])
+
+        # LV3: Synopsis
+        l3_content = None
+        if 3 in unlocked_hints:
+            l3_content = ft.Container(
+                content=ft.Column([
+                    ft.Text("劇情簡介:", size=14, color=COLORS["blue_grey_400"]),
+                    ft.Text(mask_synopsis(target.synopsis, target), size=14, selectable=True),
+                ], scroll=ft.ScrollMode.AUTO, height=150),
+                padding=10, border=ft.Border.all(1, COLORS["blue_grey_700"]), border_radius=5,
+                bgcolor=COLORS["blue_grey_800"]
+            )
+        else:
+            l3_content = ft.FilledButton(
+                "解鎖 LV3: 劇情簡介 (+10 猜測)", 
+                on_click=lambda e: unlock_hint(3, 10),
+                style=ft.ButtonStyle(bgcolor=COLORS["blue_grey_700"], color="white")
+            )
+        rows.extend([ft.Text("LV 3", weight="bold"), l3_content])
+
+        return ft.Container(
+            content=ft.Column(rows, width=400, spacing=10, tight=True),
+            padding=10
+        )
+
+    hint_overlay = None
+
+    def close_hint_overlay(e=None):
+        nonlocal hint_overlay
+        if hint_overlay and hint_overlay in page.overlay:
+            page.overlay.remove(hint_overlay)
+            hint_overlay = None
+            page.update()
+
+    def open_hint_dialog(e):
+        nonlocal hint_overlay
+        content = create_hint_content()
+        
+        # Wrap content in a card style container
+        dialog_card = ft.Container(
+            content=content,
+            bgcolor=COLORS["blue_grey_900"],
+            padding=20,
+            border_radius=10,
+            border=ft.Border.all(1, COLORS["blue_grey_700"]),
+            width=400,
+            shadow=ft.BoxShadow(
+                blur_radius=20,
+                color="#80000000"
+            ),
+            on_click=lambda e: None # Trap clicks
+        )
+
+        hint_overlay = ft.Container(
+            content=dialog_card,
+            bgcolor="#B3000000",
+            alignment=ft.Alignment(0, 0),
+            left=0, top=0, right=0, bottom=0,
+            on_click=close_hint_overlay, # Click outside to close
+        )
+        
+        page.overlay.append(hint_overlay)
+        page.update()
+
+    def unlock_hint(level, cost):
+        nonlocal penalty_count, hint_overlay
+        
+        updated = False
+        
+        if level == 1:
+            # Multi-unlock logic for tags
+            candidates = target.themes if target.themes else target.genres
+            candidates = list(candidates) if candidates else []
+            
+            # Find available indices
+            available = [i for i in range(len(candidates)) if i not in revealed_tag_indices]
+            
+            if available:
+                # Pick one random
+                idx = random.choice(available)
+                revealed_tag_indices.add(idx)
+                penalty_count += cost
+                updated = True
+        
+        elif level not in unlocked_hints:
+            unlocked_hints.add(level)
+            penalty_count += cost
+            updated = True
+            
+        if updated:
+            update_attempts_text()
+            
+            # Refresh overlay content if open
+            if hint_overlay:
+                # The content of overlay is the container, its content is the card
+                # Card content is the hint content
+                # Structure: hint_overlay -> dialog_card -> create_hint_content()
+                dialog_card = hint_overlay.content
+                dialog_card.content = create_hint_content()
+                page.update()
+
     def process_guess(anime: Anime):
         nonlocal game_over
         if game_over: return
@@ -290,8 +480,7 @@ def main(page: ft.Page):
         guesses.append(anime)
         
         # Update attempts
-        # Update attempts count
-        attempts_text.value = f"猜測次數: {len(guesses)}"
+        update_attempts_text()
 
         input_field.value = ""
         close_menu()
@@ -377,6 +566,28 @@ def main(page: ft.Page):
         text_align=ft.TextAlign.CENTER
     )
 
+    # Input Row with Hint Button
+    input_row = ft.Row(
+        controls=[
+            input_field,
+            ft.FilledButton(
+                "提示",
+                icon="lightbulb",
+                on_click=open_hint_dialog,
+                style=ft.ButtonStyle(
+                    bgcolor=COLORS["blue_grey_800"],
+                    color=COLORS["amber_600"],
+                    shape=ft.RoundedRectangleBorder(radius=10),
+                    padding=10,
+                ),
+                width=110,
+                height=50,
+            )
+        ],
+        alignment=ft.MainAxisAlignment.CENTER,
+        spacing=10
+    )
+
     # Suggestions List
     suggestions_view = ft.ListView(
         visible=True, # Visible in container
@@ -439,7 +650,7 @@ def main(page: ft.Page):
             ft.Text("猜猜今天的動漫是哪一部？", color=COLORS["blue_grey_400"]),
             attempts_text,
             ft.Divider(height=20, color="transparent"),
-            ft.Container(height=60, content=input_field), # Now input_field exists!
+            ft.Container(height=60, content=input_row), # Use input_row
             ft.Divider(height=20, color="transparent"),
             header_row,
             guesses_column

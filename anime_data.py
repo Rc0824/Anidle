@@ -10,13 +10,15 @@ class Anime:
     id: int
     name_cn: str
     name_en: str
-    image_url: str # New field
+    image_url: str 
     genres: List[str]
+    themes: List[str] # New field
     studio: str
     year: int
     episodes: int
     demographic: str
     source: str
+    synopsis: str = "" # New field
 
 # ... (Mappings omitted)
 
@@ -28,12 +30,30 @@ GENRE_MAP = {
     'Fantasy': '奇幻', 'Slice of Life': '日常', 'Horror': '恐怖', 'Mystery': '懸疑',
     'Psychological': '心理', 'Romance': '愛情', 'Sci-Fi': '科幻', 'Sports': '運動',
     'Supernatural': '超自然', 'Thriller': '驚悚', 'Suspense': '懸疑',
-    'Award Winning': '獲獎作', 'Avant Garde': '前衛'
+    'Award Winning': '獲獎作', 'Avant Garde': '前衛', 'Ecchi': '色情', 'Hentai': '變態'
+}
+
+THEME_MAP = {
+    'School': '校園', 'Harem': '後宮', 'Music': '音樂', 'Mecha': '機戰',
+    'Historical': '歷史', 'Military': '軍事', 'Super Power': '超能力', 'Vampire': '吸血鬼',
+    'Space': '太空', 'Parody': '惡搞', 'Demons': '惡魔', 'Police': '警匪',
+    'Psychological': '心理', 'Samurai': '武士', 'Game': '遊戲', 'Cars': '賽車',
+    'Kids': '兒童', 'Isekai': '異世界', 'Iyashikei': '治癒系', 'Time Travel': '時空旅行',
+    'Reincarnation': '轉生', 'Gore': '血腥', 'Survival': '生存', 'Reverse Harem': '逆後宮',
+    'Martial Arts': '武術', 'Romantic Subtext': '戀愛元素', 'Showbiz': '演藝圈',
+    'Otaku Culture': '御宅文化', 'Visual Arts': '視覺藝術', 'Team Sports': '團隊運動',
+    'Delinquents': '不良少年', 'Workplace': '職場', 'Love Polygon': '多角戀',
+    'Racing': '競速', 'Gag Humor': '搞笑', 'Mythology': '神話', 'Strategy Game': '策略遊戲',
+    'Educational': '教育', 'Detective': '偵探', 'Organized Crime': '組織犯罪',
+    'High Stakes Game': '高風險遊戲', 'Idols (Female)': '女偶像', 'Idols (Male)': '男偶像',
+    'Medical': '醫療', 'Memoir': '回憶錄', 'Performing Arts': '表演藝術', 'Pets': '寵物',
+    'CGDCT': '萌系日常', 'Combat Sports': '格鬥運動', 'Anthropomorphic': '擬人化'
 }
 
 DEMO_MAP = {
     'Shounen': '少年', 'Seinen': '青年', 'Shoujo': '少女', 'Josei': '女性', 'Kids': '兒童'
 }
+
 
 SOURCE_MAP = {
     'Manga': '漫畫', 'Light novel': '輕小說', 'Original': '原創',
@@ -41,17 +61,22 @@ SOURCE_MAP = {
 }
 
 # Load CN Titles
-def load_cn_titles():
-    path = 'data/cn_titles.json'
+def load_json_file(path):
     if os.path.exists(path):
         with open(path, 'r', encoding='utf-8') as f:
-            # Keys in JSON are strings, convert to int for ID mapping
-            return {int(k): v for k, v in json.load(f).items()}
+            # Keys in JSON are strings, convert to int for ID mapping if possible
+            data = json.load(f)
+            return {str(k): v for k, v in data.items()}
     return {}
 
-TITLE_MAP = load_cn_titles()
+TITLE_MAP = {int(k): v for k, v in load_json_file('data/cn_titles.json').items()}
+SYNOPSIS_MAP = load_json_file('data/cn_synopsis.json')
 
 def load_anime_data() -> List[Anime]:
+    # Reload maps to pick up new data if file changed (Simple live reload)
+    global SYNOPSIS_MAP
+    SYNOPSIS_MAP = load_json_file('data/cn_synopsis.json') 
+    
     file_path = 'data/rawAnime.json'
     if not os.path.exists(file_path):
         print(f"Warning: {file_path} not found.")
@@ -89,17 +114,36 @@ def load_anime_data() -> List[Anime]:
         # Source
         src = SOURCE_MAP.get(item.get('source'), item.get('source'))
 
+        # Translate Themes
+        raw_themes = item.get('themes', [])
+        translated_themes = []
+        for t in raw_themes:
+            # Try THEME_MAP first, then GENRE_MAP
+            if t in THEME_MAP:
+                translated_themes.append(THEME_MAP[t])
+            elif t in GENRE_MAP:
+                translated_themes.append(GENRE_MAP[t])
+            else:
+                translated_themes.append(t)
+
+        # Synopsis Logic: CN > En > Empty
+        # Use str(id) for dictionary lookup
+        cn_desc = SYNOPSIS_MAP.get(str(item['id']))
+        final_synopsis = cn_desc if cn_desc else item.get('synopsis', '')
+
         anime = Anime(
             id=item['id'],
-            name_cn=TITLE_MAP.get(item['id'], item['name_en']), # Fallback to English
+            name_cn=TITLE_MAP.get(int(item['id']), item['name_en']), # Ensure Int key
             name_en=item['name_en'],
             image_url=item.get('image_url', ''), # Load URL
             genres=unique_genres,
+            themes=translated_themes, # Use translated themes
             studio=studio_name,
             year=item.get('year') or 0,
             episodes=item.get('episodes') or 0,
             demographic=demo_name,
-            source=src
+            source=src,
+            synopsis=final_synopsis # Use combined logic
         )
         anime_list.append(anime)
     
