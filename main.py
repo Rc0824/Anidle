@@ -314,30 +314,51 @@ def main(page: ft.Page):
         ]
 
         # LV1: Tags (Multi-unlock)
-        candidates = target.themes if target.themes else target.genres
-        # Ensure we have a list to index into
+        # LV1: Tags (Multi-unlock)
+        candidates = target.genres # Use genres strictly to match game grid
         candidates = list(candidates) if candidates else []
+        
+        # Calculate indices of tags that correspond to already guessed anime
+        known_tag_indices = set()
+        for i, tag in enumerate(candidates):
+            # Check if this tag has appeared in any valid guess
+            # (In the game, if a tag matches, it's green. So user knows it.)
+            # But the game logic for 'match' is: if guess.genres matches target.genres
+            # Actually, `create_tags_cell` highlights MATCHING tags.
+            # So if any guess has this tag, the user knows this tag is correct.
+            for g in guesses:
+                guess_tags = g.genres # Strictly use genres (what user sees)
+                if tag in guess_tags:
+                    known_tag_indices.add(i)
+                    break
+        
+        # Total revealed = Paid Hints + Guessed Logic
+        all_revealed_indices = revealed_tag_indices.union(known_tag_indices)
         
         l1_content = ft.Column(spacing=5)
         
-        # Display Revealed Tags
-        if revealed_tag_indices:
+        # Display All Revealed Tags (Paid + Guessed)
+        if all_revealed_indices:
             tags_row = ft.Row(wrap=True, spacing=5)
-            for idx in sorted(list(revealed_tag_indices)):
+            for idx in sorted(list(all_revealed_indices)):
                 if idx < len(candidates):
+                    is_paid = idx in revealed_tag_indices
                     tags_row.controls.append(
                         ft.Container(
                             content=ft.Text(candidates[idx], size=14, color="white"),
                             padding=5, 
-                            bgcolor=COLORS["amber_600"],
-                            border_radius=4
+                            # Amber for paid hint, Green for guessed (as requested)
+                            bgcolor=COLORS["amber_600"] if is_paid else COLORS["green_600"],
+                            border_radius=4,
+                            border=None # Solid color is enough
                         )
                     )
             l1_content.controls.append(tags_row)
             
         # Unlock Button (If more available)
-        if len(revealed_tag_indices) < len(candidates):
-            remaining = len(candidates) - len(revealed_tag_indices)
+        # Available to unlock = Total - (Paid + Guessed)
+        if len(all_revealed_indices) < len(candidates):
+            remaining = len(candidates) - len(all_revealed_indices)
             l1_content.controls.append(
                  ft.FilledButton(
                     f"解鎖標籤 (剩餘 {remaining} 個) (+2 猜測)", 
@@ -442,11 +463,21 @@ def main(page: ft.Page):
         
         if level == 1:
             # Multi-unlock logic for tags
-            candidates = target.themes if target.themes else target.genres
+            candidates = target.genres # Use genres strictly
             candidates = list(candidates) if candidates else []
             
-            # Find available indices
-            available = [i for i in range(len(candidates)) if i not in revealed_tag_indices]
+            # Recalculate known tags to ensure we don't unlock something user just guessed
+            known_tag_indices = set()
+            for i, tag in enumerate(candidates):
+                for g in guesses:
+                    guess_tags = g.genres # Strictly use genres
+                    if tag in guess_tags:
+                        known_tag_indices.add(i)
+                        break
+            
+            # Available = Not Revealed AND Not Known
+            available = [i for i in range(len(candidates)) 
+                         if i not in revealed_tag_indices and i not in known_tag_indices]
             
             if available:
                 # Pick one random
