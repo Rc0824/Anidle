@@ -18,8 +18,9 @@ def main(page: ft.Page):
     }
 
     # 1. Config Page
-    page.title = "Anidle"
+    page.title = "Anidle (Web v1.1)"
     page.theme_mode = ft.ThemeMode.DARK
+    # ... (Theme config)
     page.theme = ft.Theme(font_family="Microsoft JhengHei") # Standard TC font
     # page.bgcolor = COLORS["blue_grey_900"] # Removed for gradient
     page.padding = 20
@@ -39,10 +40,16 @@ def main(page: ft.Page):
         )
     )
 
-
-    anime_list = load_anime_data()
-    if not anime_list:
-        page.add(ft.Text("Error: No data found. Please run fetch script first.", color="red"))
+    try:
+        anime_list = load_anime_data()
+        if not anime_list:
+            raise Exception("load_anime_data returned empty list")
+    except Exception as e:
+        page.add(ft.Column([
+            ft.Text(f"Data Load Error (v1.1)", color="red", size=20, weight="bold"),
+            ft.Text(f"Details: {str(e)}", color="white"),
+            ft.Text("Please ensure assets/data/rawAnime.json exists and is accessible.", color="white")
+        ]))
         return
 
     target = get_random_anime(anime_list)
