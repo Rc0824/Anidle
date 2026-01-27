@@ -23,6 +23,13 @@ class Anime:
 # ... (Mappings omitted)
 
 
+# Config
+# Detect environment (Desktop vs Web/Asset)
+DATA_DIR = 'data' # Default fallback
+if os.path.exists('assets/data'):
+    DATA_DIR = 'assets/data' # Desktop structure
+elif os.path.exists('data'):
+    DATA_DIR = 'data' # Web structure (or original desktop)
 
 # Mappings (Ported from JS)
 GENRE_MAP = {
@@ -61,23 +68,28 @@ SOURCE_MAP = {
 }
 
 # Load CN Titles
-def load_json_file(path):
+def load_json_file(filename):
+    # Try fully qualified path first
+    path = os.path.join(DATA_DIR, os.path.basename(filename)) # Ensure filename is just basename
     if os.path.exists(path):
         with open(path, 'r', encoding='utf-8') as f:
             # Keys in JSON are strings, convert to int for ID mapping if possible
             data = json.load(f)
             return {str(k): v for k, v in data.items()}
+    else:
+        print(f"File not found: {path} (Base: {DATA_DIR})")
+        
     return {}
 
-TITLE_MAP = {int(k): v for k, v in load_json_file('data/cn_titles.json').items()}
-SYNOPSIS_MAP = load_json_file('data/cn_synopsis.json')
+TITLE_MAP = {int(k): v for k, v in load_json_file('cn_titles.json').items()}
+SYNOPSIS_MAP = load_json_file('cn_synopsis.json')
 
 def load_anime_data() -> List[Anime]:
     # Reload maps to pick up new data if file changed (Simple live reload)
     global SYNOPSIS_MAP
-    SYNOPSIS_MAP = load_json_file('data/cn_synopsis.json') 
+    SYNOPSIS_MAP = load_json_file('cn_synopsis.json') 
     
-    file_path = 'data/rawAnime.json'
+    file_path = os.path.join(DATA_DIR, 'rawAnime.json')
     if not os.path.exists(file_path):
         print(f"Warning: {file_path} not found.")
         return []

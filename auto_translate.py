@@ -7,8 +7,8 @@ import urllib.parse
 import urllib.request
 
 # Config
-RAW_DATA_PATH = 'data/rawAnime.json'
-CN_TITLES_PATH = 'data/cn_titles.json'
+RAW_DATA_PATH = 'assets/data/rawAnime.json'
+CN_TITLES_PATH = 'assets/data/cn_titles.json'
 USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
 
 # Initialize OpenCC

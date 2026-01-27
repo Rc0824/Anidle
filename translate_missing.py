@@ -5,8 +5,8 @@ from deep_translator import GoogleTranslator
 from opencc import OpenCC
 
 # Config
-RAW_DATA_PATH = 'data/rawAnime.json'
-CN_SYNOPSIS_PATH = 'data/cn_synopsis.json'
+RAW_DATA_PATH = 'assets/data/rawAnime.json'
+CN_SYNOPSIS_PATH = 'assets/data/cn_synopsis.json'
 BATCH_SIZE = 10  # Save every 10 translations
 
 # Initialize Tools

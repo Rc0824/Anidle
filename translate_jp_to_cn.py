@@ -11,7 +11,7 @@ if sys.stdout.encoding != 'utf-8':
     sys.stdout.reconfigure(encoding='utf-8')
 
 # Config
-CN_SYNOPSIS_PATH = 'data/cn_synopsis.json'
+CN_SYNOPSIS_PATH = 'assets/data/cn_synopsis.json'
 BATCH_SIZE = 10 
 
 # Initialize Tools

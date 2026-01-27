@@ -7,7 +7,7 @@ from datetime import datetime
 
 # Config
 TARGET_COUNT = 1000 # Increased limit
-OUTPUT_FILE = 'data/rawAnime.json'
+OUTPUT_FILE = 'assets/data/rawAnime.json'
 API_URL = "https://api.jikan.moe/v4/anime"
 
 def fetch_top_anime(limit=50):
