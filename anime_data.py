@@ -24,12 +24,7 @@ class Anime:
 
 
 # Config
-# Detect environment (Desktop vs Web/Asset)
-DATA_DIR = 'data' # Default fallback
-if os.path.exists('assets/data'):
-    DATA_DIR = 'assets/data' # Desktop structure
-elif os.path.exists('data'):
-    DATA_DIR = 'data' # Web structure (or original desktop)
+DATA_DIR = 'data'
 
 # Mappings (Ported from JS)
 GENRE_MAP = {

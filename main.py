@@ -46,9 +46,9 @@ def main(page: ft.Page):
             raise Exception("load_anime_data returned empty list")
     except Exception as e:
         page.add(ft.Column([
-            ft.Text(f"Data Load Error (v1.1)", color="red", size=20, weight="bold"),
+            ft.Text(f"Data Load Error: Bundled Mode (v1.2)", color="red", size=20, weight="bold"),
             ft.Text(f"Details: {str(e)}", color="white"),
-            ft.Text("Please ensure assets/data/rawAnime.json exists and is accessible.", color="white")
+            ft.Text("Please ensure data/rawAnime.json is packaged in app.tar.gz.", color="white")
         ]))
         return
 
@@ -714,4 +714,4 @@ def main(page: ft.Page):
     )
 
 if __name__ == "__main__":
-    ft.app(target=main, assets_dir="assets")
+    ft.app(target=main)

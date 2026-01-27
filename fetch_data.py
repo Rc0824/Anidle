@@ -5,7 +5,7 @@ import urllib.error
 
 # Config
 TARGET_COUNT = 100 # How many anime to fetch
-OUTPUT_FILE = 'assets/data/rawAnime.json'
+OUTPUT_FILE = 'data/rawAnime.json'
 API_URL = "https://api.jikan.moe/v4/top/anime"
 
 def fetch_top_anime(limit=50):
