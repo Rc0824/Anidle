@@ -31,6 +31,7 @@ import platform
 IS_WEB = sys.platform == 'emscripten'
 
 # Config
+LAST_ERROR = "" # Debug info
 # Detect environment (Desktop vs Web/Asset)
 DATA_DIR = 'data' # Default fallback for Web (Root URL)
 if not IS_WEB:
@@ -101,7 +102,9 @@ def load_json_file(filename):
             with urllib.request.urlopen(abs_path) as response:
                  return json.load(response)
         except Exception as e:
-            print(f"Web Load Error ({path}): {e}")
+            global LAST_ERROR
+            LAST_ERROR = f"Web Load Error ({path}): {e}"
+            print(LAST_ERROR)
             return {}
     else:
         # Desktop: Local File
