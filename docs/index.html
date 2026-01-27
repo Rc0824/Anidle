@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <base href="/">
+  <base href="/Anidle/">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -25,12 +25,12 @@
       pyodide: false,
       multiView: false,
       noCdn: false,
-      webSocketEndpoint: "/ws",
-      entrypointBaseUrl: "/",
-      assetBase: "/",
+      webSocketEndpoint: "/Anidle/ws",
+      entrypointBaseUrl: "/Anidle/",
+      assetBase: "/Anidle/",
       routeUrlStrategy: "path",
-      canvasKitBaseUrl: "/canvaskit/",
-      pyodideUrl: "/pyodide/pyodide.js",
+      canvasKitBaseUrl: "/Anidle/canvaskit/",
+      pyodideUrl: "/Anidle/pyodide/pyodide.js",
       webRenderer: "auto",
       fontFallbackBaseUrl: "assets/fonts/", // for Noto Emoji, use Google CDN
       appPackageUrl: "app.tar.gz"
@@ -80,8 +80,8 @@
     flet.noCdn = false;
     flet.webRenderer = "auto";
     flet.routeUrlStrategy = "path";
-    flet.entrypointBaseUrl = "/";
-    flet.assetBase = "/";
+    flet.entrypointBaseUrl = "/Anidle/";
+    flet.assetBase = "/Anidle/";
   </script>
 
   <script src="python.js"></script>
