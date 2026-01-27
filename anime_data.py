@@ -23,13 +23,23 @@ class Anime:
 # ... (Mappings omitted)
 
 
+import sys
+import platform
+
+# Detect environment
+IS_WEB = sys.platform == 'emscripten'
+
 # Config
 # Detect environment (Desktop vs Web/Asset)
-DATA_DIR = 'data' # Default fallback
-if os.path.exists('assets/data'):
-    DATA_DIR = 'assets/data' # Desktop structure
-elif os.path.exists('data'):
-    DATA_DIR = 'data' # Web structure (or original desktop)
+DATA_DIR = 'data' # Default fallback for Web (Root URL)
+if not IS_WEB:
+    if os.path.exists('assets/data'):
+        DATA_DIR = 'assets/data' # Desktop structure
+    elif os.path.exists('data'):
+        DATA_DIR = 'data' # Fallback Desktop
+else:
+     # In Web, assets are at root relative path
+     DATA_DIR = 'data'
 
 # Mappings (Ported from JS)
 GENRE_MAP = {
@@ -67,37 +77,56 @@ SOURCE_MAP = {
     'Visual novel': '視覺小說', 'Web manga': '網路漫畫', 'Novel': '小說',
 }
 
-# Load CN Titles
+# Load JSON helper
 def load_json_file(filename):
-    # Try fully qualified path first
-    path = os.path.join(DATA_DIR, os.path.basename(filename)) # Ensure filename is just basename
-    if os.path.exists(path):
-        with open(path, 'r', encoding='utf-8') as f:
-            # Keys in JSON are strings, convert to int for ID mapping if possible
-            data = json.load(f)
-            return {str(k): v for k, v in data.items()}
+    """
+    Load JSON from local file (Desktop) or URL (Web).
+    filename should be the basename (e.g., 'cn_titles.json').
+    """
+    path = f"{DATA_DIR}/{filename}"
+    
+    if IS_WEB:
+        # Web: Fetch from URL
+        import urllib.request
+        try:
+            # Pyodide patches urlopen to handle relative paths mostly, 
+            # but safer to imply relative to base. 
+            # If base href is /Anidle/, loading "data/..." works.
+            print(f"Web Load: {path}") 
+            with urllib.request.urlopen(path) as response:
+                 return json.load(response)
+        except Exception as e:
+            print(f"Web Load Error ({path}): {e}")
+            return {}
     else:
-        print(f"File not found: {path} (Base: {DATA_DIR})")
-        
-    return {}
+        # Desktop: Local File
+        if os.path.exists(path):
+            with open(path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        else:
+             print(f"File not found: {path}")
+             return {}
 
 TITLE_MAP = {int(k): v for k, v in load_json_file('cn_titles.json').items()}
 SYNOPSIS_MAP = load_json_file('cn_synopsis.json')
 
 def load_anime_data() -> List[Anime]:
-    # Reload maps to pick up new data if file changed (Simple live reload)
     global SYNOPSIS_MAP
     SYNOPSIS_MAP = load_json_file('cn_synopsis.json') 
     
-    file_path = os.path.join(DATA_DIR, 'rawAnime.json')
-    if not os.path.exists(file_path):
-        print(f"Warning: {file_path} not found.")
+    # Load List (rawAnime.json) via helper logic
+    raw_data = []
+    
+    # Reuse load_json_file logic but it expects dict usually? 
+    # Actually rawAnime is a LIST. load_json_file returns whatever json.load returns.
+    # But my load_json_file above seems generic enough.
+    
+    data = load_json_file('rawAnime.json')
+    if isinstance(data, list):
+        raw_data = data
+    else:
+        # if returned {} due to error
         return []
-
-    try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            raw_data = json.load(f)
-    except Exception as e:
         print(f"Error loading JSON: {e}")
         return []
 
