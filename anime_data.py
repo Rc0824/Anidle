@@ -89,23 +89,20 @@ def load_json_file(filename):
     if IS_WEB:
         # Web: Fetch from URL
         import urllib.request
-        import js # Pyodide JS interop
+        # Hardcode Base URL to avoid JS interop issues
+        WEB_BASE_URL = "https://rc0824.github.io/Anidle/"
         
         try:
-            print(f"Web Load: {path}") 
-            with urllib.request.urlopen(path) as response:
+            # Construct absolute URL manually
+            # DATA_DIR is 'data', so result: https://rc0824.github.io/Anidle/data/filename
+            abs_path = f"{WEB_BASE_URL}{path}" 
+            print(f"Web Load (Hardcoded): {abs_path}")
+            
+            with urllib.request.urlopen(abs_path) as response:
                  return json.load(response)
         except Exception as e:
-            # If relative path fails (unknown url type), try absolute using baseURI
-            try:
-                base_uri = js.document.baseURI
-                abs_path = urllib.parse.urljoin(base_uri, path)
-                print(f"Web Load Retry (Absolute): {abs_path}")
-                with urllib.request.urlopen(abs_path) as response:
-                    return json.load(response)
-            except Exception as e2:
-                print(f"Web Load Error ({path}): {e} | Retry: {e2}")
-                return {}
+            print(f"Web Load Error ({path}): {e}")
+            return {}
     else:
         # Desktop: Local File
         if os.path.exists(path):

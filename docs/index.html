@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <base href="/Anidle/">
+  <base href="/">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -26,8 +26,8 @@
       multiView: false,
       noCdn: false,
       webSocketEndpoint: "/ws",
-      entrypointBaseUrl: "/Anidle/",
-      assetBase: "/Anidle/",
+      entrypointBaseUrl: "/",
+      assetBase: "/",
       routeUrlStrategy: "path",
       canvasKitBaseUrl: "/canvaskit/",
       pyodideUrl: "/pyodide/pyodide.js",
@@ -74,15 +74,15 @@
   </script>
 
   <script>
-    flet.pyodide = true;
-    flet.micropipIncludePre = false;
-    flet.pythonModuleName = "main";
-    flet.noCdn = false;
-    flet.webRenderer = "auto";
-    flet.routeUrlStrategy = "path";
-    flet.entrypointBaseUrl = "/Anidle/";
-    flet.assetBase = "/Anidle/";
-  </script>
+flet.pyodide = true;
+flet.micropipIncludePre = false;
+flet.pythonModuleName = "main";
+flet.noCdn=false;
+flet.webRenderer="auto";
+flet.routeUrlStrategy="path";
+flet.entrypointBaseUrl="/";
+flet.assetBase="/";
+</script>
 
   <script src="python.js"></script>
 </head>
@@ -152,5 +152,4 @@
   <h1>View 2</h1>
   <div id="view-2"></div> -->
 </body>
-
 </html>
