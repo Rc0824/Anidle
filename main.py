@@ -1,5 +1,4 @@
 import flet as ft
-import anime_data # Import module to access global LAST_ERROR
 from anime_data import load_anime_data, get_daily_anime, get_random_anime, Anime
 import time
 import random
@@ -43,9 +42,7 @@ def main(page: ft.Page):
 
     anime_list = load_anime_data()
     if not anime_list:
-        error_msg = f"Error: No data found.\nDetails: {anime_data.LAST_ERROR}\nPlease clear cache/deploy again."
-        page.add(ft.Text(error_msg, color="red", size=20))
-        print(error_msg)
+        page.add(ft.Text("Error: No data found. Please run fetch script first.", color="red"))
         return
 
     target = get_random_anime(anime_list)
