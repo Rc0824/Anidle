@@ -18,37 +18,17 @@ def main(page: ft.Page):
     }
 
     # 1. Config Page
-    page.title = "Anidle (Web v1.1)"
-    page.theme_mode = ft.ThemeMode.DARK
-    # ... (Theme config)
-    page.theme = ft.Theme(font_family="Microsoft JhengHei") # Standard TC font
-    # page.bgcolor = COLORS["blue_grey_900"] # Removed for gradient
-    page.padding = 20
-    page.scroll = "auto"
-    page.vertical_alignment = ft.MainAxisAlignment.START
-    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-    
-    # Gradient Background
-    page.decoration = ft.BoxDecoration(
-        gradient=ft.LinearGradient(
-            begin=ft.Alignment(0, -1),
-            end=ft.Alignment(0, 1),
-            colors=[
-                "#0f172a", # Slate 900 (Dark Blue-ish)
-                "#020617", # Slate 950 (Almost Black)
-            ],
-        )
-    )
-
+    page.title = "Anidle (Web v1.3)"
+    # ...
     try:
         anime_list = load_anime_data()
         if not anime_list:
             raise Exception("load_anime_data returned empty list")
     except Exception as e:
         page.add(ft.Column([
-            ft.Text(f"Data Load Error: Bundled Mode (v1.2)", color="red", size=20, weight="bold"),
+            ft.Text(f"Data Load Error: Embedded Mode (v1.3)", color="red", size=20, weight="bold"),
             ft.Text(f"Details: {str(e)}", color="white"),
-            ft.Text("Please ensure data/rawAnime.json is packaged in app.tar.gz.", color="white")
+            ft.Text("Ensure generate_embedded.py was run before deployment.", color="white")
         ]))
         return
 

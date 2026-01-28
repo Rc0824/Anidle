@@ -1,0 +1,1140 @@
+[
+  {
+    "id": 59978,
+    "name_en": "Frieren: Beyond Journey's End Season 2",
+    "name_jp": "葬送のフリーレン 第2期",
+    "genres": [
+      "Adventure",
+      "Drama",
+      "Fantasy"
+    ],
+    "themes": [],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Madhouse"
+    ],
+    "year": 2026,
+    "episodes": 10,
+    "source": "Manga",
+    "score": 9.28
+  },
+  {
+    "id": 52991,
+    "name_en": "Frieren: Beyond Journey's End",
+    "name_jp": "葬送のフリーレン",
+    "genres": [
+      "Adventure",
+      "Drama",
+      "Fantasy"
+    ],
+    "themes": [],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Madhouse"
+    ],
+    "year": 2023,
+    "episodes": 28,
+    "source": "Manga",
+    "score": 9.28
+  },
+  {
+    "id": 57555,
+    "name_en": "Chainsaw Man – The Movie: Reze Arc",
+    "name_jp": "劇場版 チェンソーマン レゼ篇",
+    "genres": [
+      "Action",
+      "Fantasy"
+    ],
+    "themes": [
+      "Gore",
+      "Urban Fantasy"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "MAPPA"
+    ],
+    "year": 2025,
+    "episodes": 1,
+    "source": "Manga",
+    "score": 9.11
+  },
+  {
+    "id": 5114,
+    "name_en": "Fullmetal Alchemist: Brotherhood",
+    "name_jp": "鋼の錬金術師 FULLMETAL ALCHEMIST",
+    "genres": [
+      "Action",
+      "Adventure",
+      "Drama",
+      "Fantasy"
+    ],
+    "themes": [
+      "Military"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Bones"
+    ],
+    "year": 2009,
+    "episodes": 64,
+    "source": "Manga",
+    "score": 9.1
+  },
+  {
+    "id": 9253,
+    "name_en": "Steins;Gate",
+    "name_jp": "STEINS;GATE",
+    "genres": [
+      "Drama",
+      "Sci-Fi",
+      "Suspense"
+    ],
+    "themes": [
+      "Psychological",
+      "Time Travel"
+    ],
+    "demographics": [],
+    "studios": [
+      "White Fox"
+    ],
+    "year": 2011,
+    "episodes": 24,
+    "source": "Visual novel",
+    "score": 9.07
+  },
+  {
+    "id": 38524,
+    "name_en": "Attack on Titan Season 3 Part 2",
+    "name_jp": "進撃の巨人 Season3 Part.2",
+    "genres": [
+      "Action",
+      "Drama",
+      "Suspense"
+    ],
+    "themes": [
+      "Gore",
+      "Military",
+      "Survival"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Wit Studio"
+    ],
+    "year": 2019,
+    "episodes": 10,
+    "source": "Manga",
+    "score": 9.05
+  },
+  {
+    "id": 28977,
+    "name_en": "Gintama Season 4",
+    "name_jp": "銀魂°",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Sci-Fi"
+    ],
+    "themes": [
+      "Gag Humor",
+      "Historical",
+      "Parody",
+      "Samurai"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Bandai Namco Pictures"
+    ],
+    "year": 2015,
+    "episodes": 51,
+    "source": "Manga",
+    "score": 9.05
+  },
+  {
+    "id": 39486,
+    "name_en": "Gintama: The Very Final",
+    "name_jp": "銀魂 THE FINAL",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Drama",
+      "Sci-Fi"
+    ],
+    "themes": [
+      "Gag Humor",
+      "Historical",
+      "Parody",
+      "Samurai"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Bandai Namco Pictures"
+    ],
+    "year": 2021,
+    "episodes": 1,
+    "source": "Manga",
+    "score": 9.05
+  },
+  {
+    "id": 11061,
+    "name_en": "Hunter x Hunter",
+    "name_jp": "HUNTER×HUNTER（ハンター×ハンター）",
+    "genres": [
+      "Action",
+      "Adventure",
+      "Fantasy"
+    ],
+    "themes": [],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Madhouse"
+    ],
+    "year": 2011,
+    "episodes": 148,
+    "source": "Manga",
+    "score": 9.03
+  },
+  {
+    "id": 60022,
+    "name_en": "One Piece Fan Letter",
+    "name_jp": "ONE PIECE FAN LETTER",
+    "genres": [
+      "Action",
+      "Adventure",
+      "Fantasy"
+    ],
+    "themes": [],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Toei Animation"
+    ],
+    "year": 2024,
+    "episodes": 1,
+    "source": "Light novel",
+    "score": 9.02
+  },
+  {
+    "id": 9969,
+    "name_en": "Gintama Season 2",
+    "name_jp": "銀魂'",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Sci-Fi"
+    ],
+    "themes": [
+      "Gag Humor",
+      "Historical",
+      "Parody",
+      "Samurai"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Sunrise"
+    ],
+    "year": 2011,
+    "episodes": 51,
+    "source": "Manga",
+    "score": 9.02
+  },
+  {
+    "id": 15417,
+    "name_en": "Gintama: Enchousen",
+    "name_jp": "銀魂' 延長戦",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Sci-Fi"
+    ],
+    "themes": [
+      "Gag Humor",
+      "Historical",
+      "Parody",
+      "Samurai"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Sunrise"
+    ],
+    "year": 2012,
+    "episodes": 13,
+    "source": "Manga",
+    "score": 9.02
+  },
+  {
+    "id": 820,
+    "name_en": "Legend of the Galactic Heroes",
+    "name_jp": "銀河英雄伝説",
+    "genres": [
+      "Drama",
+      "Sci-Fi"
+    ],
+    "themes": [
+      "Adult Cast",
+      "Military",
+      "Space"
+    ],
+    "demographics": [],
+    "studios": [
+      "K-Factory",
+      "Kitty Film Mitaka Studio"
+    ],
+    "year": 1988,
+    "episodes": 110,
+    "source": "Novel",
+    "score": 9.02
+  },
+  {
+    "id": 34096,
+    "name_en": "Gintama Season 5",
+    "name_jp": "銀魂。",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Sci-Fi"
+    ],
+    "themes": [
+      "Gag Humor",
+      "Historical",
+      "Parody",
+      "Samurai"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Bandai Namco Pictures"
+    ],
+    "year": 2017,
+    "episodes": 12,
+    "source": "Manga",
+    "score": 8.98
+  },
+  {
+    "id": 41467,
+    "name_en": "Bleach: Thousand-Year Blood War",
+    "name_jp": "BLEACH 千年血戦篇",
+    "genres": [
+      "Action",
+      "Adventure",
+      "Supernatural"
+    ],
+    "themes": [],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Studio Pierrot"
+    ],
+    "year": 2022,
+    "episodes": 13,
+    "source": "Manga",
+    "score": 8.98
+  },
+  {
+    "id": 43608,
+    "name_en": "Kaguya-sama: Love is War -Ultra Romantic-",
+    "name_jp": "かぐや様は告らせたい-ウルトラロマンティック-",
+    "genres": [
+      "Comedy",
+      "Romance"
+    ],
+    "themes": [
+      "School"
+    ],
+    "demographics": [
+      "Seinen"
+    ],
+    "studios": [
+      "A-1 Pictures"
+    ],
+    "year": 2022,
+    "episodes": 13,
+    "source": "Manga",
+    "score": 8.96
+  },
+  {
+    "id": 42938,
+    "name_en": "Fruits Basket: The Final Season",
+    "name_jp": "フルーツバスケット The Final",
+    "genres": [
+      "Drama",
+      "Romance",
+      "Supernatural"
+    ],
+    "themes": [],
+    "demographics": [
+      "Shoujo"
+    ],
+    "studios": [
+      "TMS Entertainment"
+    ],
+    "year": 2021,
+    "episodes": 13,
+    "source": "Manga",
+    "score": 8.94
+  },
+  {
+    "id": 4181,
+    "name_en": "Clannad: After Story",
+    "name_jp": "CLANNAD〜AFTER STORY〜 クラナド アフターストーリー",
+    "genres": [
+      "Drama",
+      "Romance"
+    ],
+    "themes": [],
+    "demographics": [],
+    "studios": [
+      "Kyoto Animation"
+    ],
+    "year": 2008,
+    "episodes": 24,
+    "source": "Visual novel",
+    "score": 8.93
+  },
+  {
+    "id": 918,
+    "name_en": "Gintama",
+    "name_jp": "銀魂",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Sci-Fi"
+    ],
+    "themes": [
+      "Gag Humor",
+      "Historical",
+      "Parody",
+      "Samurai"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Sunrise"
+    ],
+    "year": 2006,
+    "episodes": 201,
+    "source": "Manga",
+    "score": 8.93
+  },
+  {
+    "id": 28851,
+    "name_en": "A Silent Voice",
+    "name_jp": "聲の形",
+    "genres": [
+      "Award Winning",
+      "Drama"
+    ],
+    "themes": [],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Kyoto Animation"
+    ],
+    "year": 2016,
+    "episodes": 1,
+    "source": "Manga",
+    "score": 8.93
+  },
+  {
+    "id": 58514,
+    "name_en": "The Apothecary Diaries Season 2",
+    "name_jp": "薬屋のひとりごと 第2期",
+    "genres": [
+      "Drama",
+      "Mystery"
+    ],
+    "themes": [
+      "Historical",
+      "Medical"
+    ],
+    "demographics": [],
+    "studios": [
+      "OLM",
+      "TOHO animation STUDIO"
+    ],
+    "year": 2025,
+    "episodes": 24,
+    "source": "Light novel",
+    "score": 8.91
+  },
+  {
+    "id": 2904,
+    "name_en": "Code Geass: Lelouch of the Rebellion R2",
+    "name_jp": "コードギアス 反逆のルルーシュ R2",
+    "genres": [
+      "Award Winning",
+      "Drama",
+      "Sci-Fi"
+    ],
+    "themes": [
+      "Mecha",
+      "Military",
+      "Super Power"
+    ],
+    "demographics": [],
+    "studios": [
+      "Sunrise"
+    ],
+    "year": 2008,
+    "episodes": 25,
+    "source": "Original",
+    "score": 8.91
+  },
+  {
+    "id": 35180,
+    "name_en": "March Comes In Like a Lion 2nd Season",
+    "name_jp": "3月のライオン 第2シリーズ",
+    "genres": [
+      "Drama"
+    ],
+    "themes": [
+      "Childcare",
+      "Strategy Game"
+    ],
+    "demographics": [
+      "Seinen"
+    ],
+    "studios": [
+      "Shaft"
+    ],
+    "year": 2017,
+    "episodes": 22,
+    "source": "Manga",
+    "score": 8.9
+  },
+  {
+    "id": 15335,
+    "name_en": "Gintama: The Movie: The Final Chapter: Be Forever Yorozuya",
+    "name_jp": "劇場版 銀魂 完結篇 万事屋よ永遠なれ",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Sci-Fi"
+    ],
+    "themes": [
+      "Gag Humor",
+      "Historical",
+      "Parody",
+      "Samurai",
+      "Time Travel"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Sunrise"
+    ],
+    "year": 2013,
+    "episodes": 1,
+    "source": "Manga",
+    "score": 8.89
+  },
+  {
+    "id": 19,
+    "name_en": "Monster",
+    "name_jp": "モンスター",
+    "genres": [
+      "Drama",
+      "Mystery",
+      "Suspense"
+    ],
+    "themes": [
+      "Adult Cast",
+      "Psychological"
+    ],
+    "demographics": [
+      "Seinen"
+    ],
+    "studios": [
+      "Madhouse"
+    ],
+    "year": 2004,
+    "episodes": 74,
+    "source": "Manga",
+    "score": 8.89
+  },
+  {
+    "id": 37491,
+    "name_en": "Gintama. Silver Soul Arc - Second Half War",
+    "name_jp": "銀魂. 銀ノ魂篇 後半戦",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Sci-Fi"
+    ],
+    "themes": [
+      "Gag Humor",
+      "Historical",
+      "Parody",
+      "Samurai"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Bandai Namco Pictures"
+    ],
+    "year": 2018,
+    "episodes": 14,
+    "source": "Manga",
+    "score": 8.88
+  },
+  {
+    "id": 51535,
+    "name_en": "Attack on Titan: Final Season - The Final Chapters",
+    "name_jp": "進撃の巨人 The Final Season完結編",
+    "genres": [
+      "Action",
+      "Drama",
+      "Suspense"
+    ],
+    "themes": [
+      "Gore",
+      "Military",
+      "Survival"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "MAPPA"
+    ],
+    "year": 2023,
+    "episodes": 2,
+    "source": "Manga",
+    "score": 8.86
+  },
+  {
+    "id": 35247,
+    "name_en": "Owarimonogatari Second Season",
+    "name_jp": "終物語",
+    "genres": [
+      "Comedy",
+      "Mystery",
+      "Supernatural"
+    ],
+    "themes": [
+      "Vampire"
+    ],
+    "demographics": [],
+    "studios": [
+      "Shaft"
+    ],
+    "year": 2017,
+    "episodes": 7,
+    "source": "Light novel",
+    "score": 8.86
+  },
+  {
+    "id": 54492,
+    "name_en": "The Apothecary Diaries",
+    "name_jp": "薬屋のひとりごと",
+    "genres": [
+      "Drama",
+      "Mystery"
+    ],
+    "themes": [
+      "Historical",
+      "Medical"
+    ],
+    "demographics": [],
+    "studios": [
+      "OLM",
+      "TOHO animation STUDIO"
+    ],
+    "year": 2023,
+    "episodes": 24,
+    "source": "Light novel",
+    "score": 8.85
+  },
+  {
+    "id": 40682,
+    "name_en": "Kingdom Season 3",
+    "name_jp": "キングダム 第3シリーズ",
+    "genres": [
+      "Action"
+    ],
+    "themes": [
+      "Historical",
+      "Military"
+    ],
+    "demographics": [
+      "Seinen"
+    ],
+    "studios": [
+      "Studio Pierrot",
+      "Studio Signpost"
+    ],
+    "year": 2020,
+    "episodes": 26,
+    "source": "Manga",
+    "score": 8.84
+  },
+  {
+    "id": 37987,
+    "name_en": "Violet Evergarden: The Movie",
+    "name_jp": "劇場版 ヴァイオレット・エヴァーガーデン",
+    "genres": [
+      "Award Winning",
+      "Drama"
+    ],
+    "themes": [],
+    "demographics": [],
+    "studios": [
+      "Kyoto Animation"
+    ],
+    "year": 2020,
+    "episodes": 1,
+    "source": "Light novel",
+    "score": 8.84
+  },
+  {
+    "id": 59571,
+    "name_en": "Attack on Titan: The Last Attack",
+    "name_jp": "劇場版 進撃の巨人 完結編 THE LAST ATTACK",
+    "genres": [
+      "Action",
+      "Drama",
+      "Suspense"
+    ],
+    "themes": [
+      "Gore",
+      "Military",
+      "Survival"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "MAPPA"
+    ],
+    "year": 2024,
+    "episodes": 1,
+    "source": "Manga",
+    "score": 8.83
+  },
+  {
+    "id": 32281,
+    "name_en": "Your Name.",
+    "name_jp": "君の名は。",
+    "genres": [
+      "Award Winning",
+      "Drama"
+    ],
+    "themes": [],
+    "demographics": [],
+    "studios": [
+      "CoMix Wave Films"
+    ],
+    "year": 2016,
+    "episodes": 1,
+    "source": "Original",
+    "score": 8.83
+  },
+  {
+    "id": 49387,
+    "name_en": "Vinland Saga Season 2",
+    "name_jp": "ヴィンランド・サガ SEASON2",
+    "genres": [
+      "Action",
+      "Adventure",
+      "Drama"
+    ],
+    "themes": [
+      "Gore",
+      "Historical"
+    ],
+    "demographics": [
+      "Seinen"
+    ],
+    "studios": [
+      "MAPPA"
+    ],
+    "year": 2023,
+    "episodes": 24,
+    "source": "Manga",
+    "score": 8.82
+  },
+  {
+    "id": 36838,
+    "name_en": "Gintama. Silver Soul Arc",
+    "name_jp": "銀魂. 銀ノ魂篇",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Sci-Fi"
+    ],
+    "themes": [
+      "Gag Humor",
+      "Historical",
+      "Parody",
+      "Samurai"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Bandai Namco Pictures"
+    ],
+    "year": 2018,
+    "episodes": 12,
+    "source": "Manga",
+    "score": 8.81
+  },
+  {
+    "id": 37510,
+    "name_en": "Mob Psycho 100 II",
+    "name_jp": "モブサイコ100 II",
+    "genres": [
+      "Action",
+      "Comedy",
+      "Supernatural"
+    ],
+    "themes": [],
+    "demographics": [],
+    "studios": [
+      "Bones"
+    ],
+    "year": 2019,
+    "episodes": 13,
+    "source": "Web manga",
+    "score": 8.78
+  },
+  {
+    "id": 31758,
+    "name_en": "Kizumonogatari Part 3: Cold-Blooded",
+    "name_jp": "傷物語〈Ⅲ冷血篇〉",
+    "genres": [
+      "Action",
+      "Mystery",
+      "Supernatural"
+    ],
+    "themes": [
+      "Vampire"
+    ],
+    "demographics": [],
+    "studios": [
+      "Shaft"
+    ],
+    "year": 2017,
+    "episodes": 1,
+    "source": "Light novel",
+    "score": 8.78
+  },
+  {
+    "id": 2921,
+    "name_en": "Tomorrow's Joe 2",
+    "name_jp": "あしたのジョー２",
+    "genres": [
+      "Drama",
+      "Sports"
+    ],
+    "themes": [
+      "Combat Sports"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Tokyo Movie Shinsha"
+    ],
+    "year": 1980,
+    "episodes": 47,
+    "source": "Manga",
+    "score": 8.78
+  },
+  {
+    "id": 40028,
+    "name_en": "Attack on Titan: Final Season",
+    "name_jp": "進撃の巨人 The Final Season",
+    "genres": [
+      "Action",
+      "Drama",
+      "Suspense"
+    ],
+    "themes": [
+      "Gore",
+      "Military",
+      "Survival"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "MAPPA"
+    ],
+    "year": 2021,
+    "episodes": 16,
+    "source": "Manga",
+    "score": 8.78
+  },
+  {
+    "id": 37521,
+    "name_en": "Vinland Saga",
+    "name_jp": "ヴィンランド・サガ",
+    "genres": [
+      "Action",
+      "Adventure",
+      "Drama"
+    ],
+    "themes": [
+      "Gore",
+      "Historical"
+    ],
+    "demographics": [
+      "Seinen"
+    ],
+    "studios": [
+      "Wit Studio"
+    ],
+    "year": 2019,
+    "episodes": 24,
+    "source": "Manga",
+    "score": 8.78
+  },
+  {
+    "id": 263,
+    "name_en": "Fighting Spirit",
+    "name_jp": "はじめの一歩 THE FIGHTING!",
+    "genres": [
+      "Sports"
+    ],
+    "themes": [
+      "Combat Sports"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Madhouse"
+    ],
+    "year": 2000,
+    "episodes": 75,
+    "source": "Manga",
+    "score": 8.78
+  },
+  {
+    "id": 60489,
+    "name_en": "Takopi's Original Sin",
+    "name_jp": "タコピーの原罪",
+    "genres": [
+      "Drama",
+      "Sci-Fi"
+    ],
+    "themes": [
+      "Psychological",
+      "Time Travel"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Enishiya"
+    ],
+    "year": 2025,
+    "episodes": 6,
+    "source": "Manga",
+    "score": 8.77
+  },
+  {
+    "id": 32935,
+    "name_en": "Haikyu!! 3rd Season",
+    "name_jp": "ハイキュー!! 烏野高校 VS 白鳥沢学園高校",
+    "genres": [
+      "Sports"
+    ],
+    "themes": [
+      "School",
+      "Team Sports"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Production I.G"
+    ],
+    "year": 2016,
+    "episodes": 10,
+    "source": "Manga",
+    "score": 8.77
+  },
+  {
+    "id": 199,
+    "name_en": "Spirited Away",
+    "name_jp": "千と千尋の神隠し",
+    "genres": [
+      "Adventure",
+      "Award Winning",
+      "Fantasy"
+    ],
+    "themes": [
+      "Mythology"
+    ],
+    "demographics": [],
+    "studios": [
+      "Studio Ghibli"
+    ],
+    "year": 2001,
+    "episodes": 1,
+    "source": "Original",
+    "score": 8.77
+  },
+  {
+    "id": 48583,
+    "name_en": "Attack on Titan: Final Season Part 2",
+    "name_jp": "進撃の巨人 The Final Season Part 2",
+    "genres": [
+      "Action",
+      "Drama",
+      "Suspense"
+    ],
+    "themes": [
+      "Gore",
+      "Military",
+      "Survival"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "MAPPA"
+    ],
+    "year": 2022,
+    "episodes": 12,
+    "source": "Manga",
+    "score": 8.77
+  },
+  {
+    "id": 17074,
+    "name_en": "Monogatari Series: Second Season",
+    "name_jp": "〈物語〉シリーズ セカンドシーズン",
+    "genres": [
+      "Comedy",
+      "Mystery",
+      "Romance",
+      "Supernatural"
+    ],
+    "themes": [
+      "Vampire"
+    ],
+    "demographics": [],
+    "studios": [
+      "Shaft"
+    ],
+    "year": 2013,
+    "episodes": 26,
+    "source": "Light novel",
+    "score": 8.76
+  },
+  {
+    "id": 1,
+    "name_en": "Cowboy Bebop",
+    "name_jp": "カウボーイビバップ",
+    "genres": [
+      "Action",
+      "Award Winning",
+      "Sci-Fi"
+    ],
+    "themes": [
+      "Adult Cast",
+      "Space"
+    ],
+    "demographics": [],
+    "studios": [
+      "Sunrise"
+    ],
+    "year": 1998,
+    "episodes": 26,
+    "source": "Original",
+    "score": 8.75
+  },
+  {
+    "id": 60098,
+    "name_en": "My Hero Academia Final Season",
+    "name_jp": "僕のヒーローアカデミア FINAL SEASON",
+    "genres": [
+      "Action"
+    ],
+    "themes": [
+      "School",
+      "Super Power"
+    ],
+    "demographics": [
+      "Shounen"
+    ],
+    "studios": [
+      "Bones Film"
+    ],
+    "year": 2025,
+    "episodes": 11,
+    "source": "Manga",
+    "score": 8.74
+  },
+  {
+    "id": 47917,
+    "name_en": "Bocchi the Rock!",
+    "name_jp": "ぼっち・ざ・ろっく！",
+    "genres": [
+      "Comedy"
+    ],
+    "themes": [
+      "CGDCT",
+      "Music"
+    ],
+    "demographics": [],
+    "studios": [
+      "CloverWorks"
+    ],
+    "year": 2022,
+    "episodes": 12,
+    "source": "4-koma manga",
+    "score": 8.74
+  },
+  {
+    "id": 53223,
+    "name_en": "Kingdom Season 5",
+    "name_jp": "キングダム 第5シリーズ",
+    "genres": [
+      "Action"
+    ],
+    "themes": [
+      "Historical",
+      "Military"
+    ],
+    "demographics": [
+      "Seinen"
+    ],
+    "studios": [
+      "Studio Pierrot",
+      "Studio Signpost"
+    ],
+    "year": 2024,
+    "episodes": 13,
+    "source": "Manga",
+    "score": 8.73
+  }
+]

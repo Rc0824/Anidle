@@ -1,9 +1,16 @@
-import json
 import random
 from dataclasses import dataclass
 from typing import List, Optional
 from datetime import datetime
-import os
+
+# Import Embedded Data
+try:
+    from embedded_data import RAW_ANIME_DATA, CN_TITLES, CN_SYNOPSIS
+except ImportError:
+    print("Warning: embedded_data.py not found. Please run generate_embedded.py.")
+    RAW_ANIME_DATA = []
+    CN_TITLES = {}
+    CN_SYNOPSIS = {}
 
 @dataclass
 class Anime:
@@ -20,13 +27,8 @@ class Anime:
     source: str
     synopsis: str = "" # New field
 
-# ... (Mappings omitted)
 
-
-# Config
-DATA_DIR = 'data'
-
-# Mappings (Ported from JS)
+# Mappings (Ported from JS, unchanged)
 GENRE_MAP = {
     'Action': '動作', 'Adventure': '冒險', 'Comedy': '喜劇', 'Drama': '劇情',
     'Fantasy': '奇幻', 'Slice of Life': '日常', 'Horror': '恐怖', 'Mystery': '懸疑',
@@ -62,38 +64,19 @@ SOURCE_MAP = {
     'Visual novel': '視覺小說', 'Web manga': '網路漫畫', 'Novel': '小說',
 }
 
-# Load CN Titles
-def load_json_file(filename):
-    # Try fully qualified path first
-    path = os.path.join(DATA_DIR, os.path.basename(filename)) # Ensure filename is just basename
-    if os.path.exists(path):
-        with open(path, 'r', encoding='utf-8') as f:
-            # Keys in JSON are strings, convert to int for ID mapping if possible
-            data = json.load(f)
-            return {str(k): v for k, v in data.items()}
-    else:
-        print(f"File not found: {path} (Base: {DATA_DIR})")
-        
-    return {}
-
-TITLE_MAP = {int(k): v for k, v in load_json_file('cn_titles.json').items()}
-SYNOPSIS_MAP = load_json_file('cn_synopsis.json')
+# Pre-process Maps
+# Convert string keys to int for Titles
+TITLE_MAP = {}
+for k, v in CN_TITLES.items():
+    try:
+        TITLE_MAP[int(k)] = v
+    except ValueError:
+        pass
 
 def load_anime_data() -> List[Anime]:
-    # Reload maps to pick up new data if file changed (Simple live reload)
-    global SYNOPSIS_MAP
-    SYNOPSIS_MAP = load_json_file('cn_synopsis.json') 
-    
-    file_path = os.path.join(DATA_DIR, 'rawAnime.json')
-    if not os.path.exists(file_path):
-        print(f"Warning: {file_path} not found.")
-        return []
-
-    try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            raw_data = json.load(f)
-    except Exception as e:
-        print(f"Error loading JSON: {e}")
+    raw_data = RAW_ANIME_DATA
+    if not raw_data:
+        print("Warning: RAW_ANIME_DATA is empty.")
         return []
 
     anime_list = []
@@ -134,8 +117,10 @@ def load_anime_data() -> List[Anime]:
                 translated_themes.append(t)
 
         # Synopsis Logic: CN > En > Empty
-        # Use str(id) for dictionary lookup
-        cn_desc = SYNOPSIS_MAP.get(str(item['id']))
+        # Use str(id) for dictionary lookup in JSON-based maps (Strings)
+        # But we also have TITLE_MAP with Int keys.
+        # CN_SYNOPSIS keys are likely strings (from JSON).
+        cn_desc = CN_SYNOPSIS.get(str(item['id']))
         final_synopsis = cn_desc if cn_desc else item.get('synopsis', '')
 
         anime = Anime(
