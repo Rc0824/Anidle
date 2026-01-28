@@ -23,6 +23,15 @@ def save_json(path, data):
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=4, ensure_ascii=False)
 
+import re
+
+def is_mostly_english(text):
+    if not text: return False
+    clean = re.sub(r'[^\w]', '', text)
+    if not clean: return False
+    ascii_count = len([c for c in clean if ord(c) < 128])
+    return (ascii_count / len(clean)) > 0.5
+
 def main():
     print("Loading data...")
     raw_data = load_json(RAW_DATA_PATH)
@@ -32,15 +41,15 @@ def main():
     cn_synopsis = load_json(CN_SYNOPSIS_PATH)
     
     total_raw = len(raw_data)
-    already_done = len(cn_synopsis)
-    
     print(f"Total Anime: {total_raw}")
-    print(f"Already Translated: {already_done}")
     
     missing_ids = []
     for anime in raw_data:
         mal_id = str(anime['id'])
-        if mal_id not in cn_synopsis or not cn_synopsis[mal_id]:
+        current_text = cn_synopsis.get(mal_id, "")
+        
+        # Condition: Missing OR Mostly English
+        if not current_text or is_mostly_english(current_text):
             missing_ids.append(anime)
             
     print(f"Remaining to translate: {len(missing_ids)}")
