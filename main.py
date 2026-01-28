@@ -18,19 +18,33 @@ def main(page: ft.Page):
     }
 
     # 1. Config Page
-    page.title = "Anidle (Web v1.3)"
-    # ...
-    try:
-        anime_list = load_anime_data()
-        if not anime_list:
-            raise Exception("load_anime_data returned empty list")
-    except Exception as e:
-        page.add(ft.Column([
-            ft.Text(f"Data Load Error: Embedded Mode (v1.3)", color="red", size=20, weight="bold"),
-            ft.Text(f"Details: {str(e)}", color="white"),
-            ft.Text("Ensure generate_embedded.py was run before deployment.", color="white")
-        ]))
-        return
+    page.title = "Anidle (Web v1.4)"
+    page.theme_mode = ft.ThemeMode.DARK
+    
+    # Register Google Font
+    page.fonts = {
+        "Noto Sans TC": "https://fonts.gstatic.com/s/notosanstc/v35/-nF7OG829NcXan72yhO8IG99dBasx6w.ttf"
+    }
+    
+    # Theme config with web-safe font
+    page.theme = ft.Theme(font_family="Noto Sans TC") 
+    page.bgcolor = "#0f172a" # Fallback background color
+    page.padding = 20
+    page.scroll = "auto"
+    page.vertical_alignment = ft.MainAxisAlignment.START
+    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+    
+    # Gradient Background
+    page.decoration = ft.BoxDecoration(
+        gradient=ft.LinearGradient(
+            begin=ft.Alignment(0, -1),
+            end=ft.Alignment(0, 1),
+            colors=[
+                "#0f172a", # Slate 900
+                "#020617", # Slate 950
+            ],
+        )
+    )
 
     target = get_random_anime(anime_list)
     guesses = []
