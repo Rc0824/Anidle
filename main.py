@@ -18,7 +18,7 @@ def main(page: ft.Page):
     }
 
     # 1. Config Page
-    page.title = "Anidle (Web v1.4)"
+    page.title = "Anidle (Web v1.5)"
     page.theme_mode = ft.ThemeMode.DARK
     
     # Register Google Font
@@ -537,9 +537,17 @@ def main(page: ft.Page):
             page.update()
 
     async def on_suggestion_click(e):
-        """Step 1: Fill input with selected anime name"""
+        """Step 1: Directly Submit the selected anime object"""
         anime = e.control.data
-        input_field.value = anime.name_cn
+        if anime in guesses:
+             page.snack_bar = ft.SnackBar(ft.Text(f"您已經猜過 {anime.name_cn} 了！"))
+             page.snack_bar.open = True
+             page.update()
+        else:
+            process_guess(anime) # Directly process the object from data
+        
+        # Cleanup UI
+        # input_field.value = "" # handled in process_guess
         close_menu()
         await input_field.focus()
         page.update()
