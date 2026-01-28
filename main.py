@@ -536,29 +536,38 @@ def main(page: ft.Page):
         else:
             page.update()
 
+    pending_anime = None
+
     async def on_suggestion_click(e):
-        """Step 1: Directly Submit the selected anime object"""
+        nonlocal pending_anime
+        """Step 1: Fill input and store selection (Don't submit yet)"""
         anime = e.control.data
         if anime in guesses:
              page.snack_bar = ft.SnackBar(ft.Text(f"您已經猜過 {anime.name_cn} 了！"))
              page.snack_bar.open = True
              page.update()
-        else:
-            process_guess(anime) # Directly process the object from data
-        
-        # Cleanup UI
-        # input_field.value = "" # handled in process_guess
+             return
+
+        pending_anime = anime
+        input_field.value = anime.name_cn
         close_menu()
         await input_field.focus()
         page.update()
 
     def on_submit(e):
+        nonlocal pending_anime
         """Step 2: Process guess on Enter key"""
         val = input_field.value.strip()
         if not val: return
 
-        # Find exact match first (Case insensitive)
-        match = next((a for a in anime_list if a.name_cn.lower() == val.lower() or a.name_en.lower() == val.lower()), None)
+        match = None
+        
+        # Priority 1: Use pending selection if text matches
+        if pending_anime and pending_anime.name_cn == val:
+            match = pending_anime
+        else:
+            # Priority 2: Fallback to name search
+            match = next((a for a in anime_list if a.name_cn.lower() == val.lower() or a.name_en.lower() == val.lower()), None)
         
         if match:
             if match in guesses:
@@ -567,12 +576,16 @@ def main(page: ft.Page):
                 page.update()
             else:
                 process_guess(match)
+                pending_anime = None # Reset
         else:
             page.snack_bar = ft.SnackBar(ft.Text(f"找不到動漫: {val}"))
             page.snack_bar.open = True
             page.update()
 
     def on_search_change(e):
+        nonlocal pending_anime
+        pending_anime = None # Reset pending on manual edit
+        
         val = e.control.value.lower().strip()
         if not val:
             suggestions_container.visible = False
