@@ -46,6 +46,18 @@ def main(page: ft.Page):
         )
     )
 
+    try:
+        anime_list = load_anime_data()
+        if not anime_list:
+            raise Exception("load_anime_data returned empty list")
+    except Exception as e:
+        page.add(ft.Column([
+            ft.Text(f"Data Load Error: Embedded Mode (v1.4)", color="red", size=20, weight="bold"),
+            ft.Text(f"Details: {str(e)}", color="white"),
+            ft.Text("Ensure generate_embedded.py was run before deployment.", color="white")
+        ]))
+        return
+
     target = get_random_anime(anime_list)
     guesses = []
     game_over = False
