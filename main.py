@@ -18,7 +18,7 @@ def main(page: ft.Page):
     }
 
     # 1. Config Page
-    page.title = "Anidle (Web v1.5)"
+    page.title = "Anidle (Web v1.6)" # Version bump for verification
     page.theme_mode = ft.ThemeMode.DARK
     
     # Register Google Font
