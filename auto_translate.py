@@ -8,6 +8,7 @@ import urllib.request
 
 # Config
 import sys
+from deep_translator import GoogleTranslator # Added import
 # Fix stdout encoding for Windows
 if sys.stdout.encoding != 'utf-8':
     sys.stdout.reconfigure(encoding='utf-8')
@@ -18,6 +19,7 @@ USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 
 # Initialize OpenCC
 cc = OpenCC('s2t')
+translator = GoogleTranslator(source='auto', target='zh-TW') # Initialize Translator
 
 def load_json(path):
     if os.path.exists(path):
@@ -94,10 +96,21 @@ def main():
                 print(f"[{i+1}/{total}] Skipping ID {mal_id}: No title found.")
                 continue
 
-            print(f"[{i+1}/{total}] Translating: {search_query} ... ", end='', flush=True)
-            
+            # Try Bangumi First
             translated_name = search_bangumi(search_query)
             
+            # Fallback: Google Translate
+            if not translated_name:
+                print("Bangumi not found. Trying Google Translate... ", end='', flush=True)
+                try:
+                    # Use English name for translation if search used JP and failed, or just use what we have
+                    src_text = anime.get('name_en') or search_query
+                    # Clean up "Season X" slightly? Google usually handles it ok.
+                    t_text = translator.translate(src_text)
+                    translated_name = cc.convert(t_text)
+                except Exception as e:
+                    print(f"Google failed: {e}")
+
             if translated_name:
                 print(f"Found: {translated_name}")
                 cn_titles[mal_id] = translated_name
@@ -106,10 +119,10 @@ def main():
                 # Save immediately/frequently to prevent data loss
                 save_json(CN_TITLES_PATH, cn_titles)
             else:
-                print("Not found.")
+                print("Failed.")
             
             # Rate limiting (Bangumi isn't super strict but let's be safe)
-            time.sleep(1.5)
+            time.sleep(1.0) # Reduced slightly since fallback handles gaps
 
     except KeyboardInterrupt:
         print("\nProcess interrupted by user.")
