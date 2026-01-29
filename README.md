@@ -3,6 +3,8 @@
 **Anidle** (Anime + Wordle) 是一款使用 Python 與 [Flet](https://flet.dev/) 構建的動漫猜謎遊戲。
 根據工作室、類型、年份等屬性來猜測今天的動漫是哪一部！
 
+🌐 **線上遊玩**: [https://rc0824.github.io/Anidle/](https://rc0824.github.io/Anidle/)
+
 ## ✨ 遊戲特色
 
 - **📚 豐富題庫**：收錄從 2000 年至今超過 300 部熱門動漫。
